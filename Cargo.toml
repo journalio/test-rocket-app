@@ -1,0 +1,11 @@
+[package]
+name = "test-rocket-app"
+version = "0.1.0"
+authors = ["Wesley Klop <wesley19097@gmail.com>"]
+edition = "2018"
+publish = false
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rocket = "0.4.2"
