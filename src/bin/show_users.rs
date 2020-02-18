@@ -1,8 +1,9 @@
 extern crate diesel;
 
-use self::diesel::prelude::*;
 use test_rocket_app::establish_connection;
-use test_rocket_app::models::User;
+use test_rocket_app::models::*;
+
+use self::diesel::prelude::*;
 
 fn main() {
     use test_rocket_app::schema::users::dsl::*;

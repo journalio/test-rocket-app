@@ -500,6 +500,7 @@ dependencies = [
  "diesel",
  "dotenv",
  "rocket",
+ "uuid",
 ]
 
 [[package]]

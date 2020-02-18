@@ -1,27 +1,25 @@
 extern crate diesel;
 
-use self::diesel::prelude::*;
 use test_rocket_app::establish_connection;
-use test_rocket_app::models::User;
+use test_rocket_app::models::{NewUser, User};
+
+use self::diesel::prelude::*;
 
 fn main() {
     use test_rocket_app::schema::users::dsl::*;
 
     let connection = establish_connection();
-    let new_user = User {
-        id: Default::default(),
-        full_name: "Wesley Klop".to_string(),
-        email: "wesley19097@gmail.com".to_string(),
-        password_hash: "blabblablabcrypt nog nodig".to_string(),
+    let new_user = NewUser {
+        full_name: "Wesley Klop",
+        email: "wesley19097@gmail.com",
+        password_hash: "blabblablabcrypt nog nodig",
     };
-    let results = diesel::insert_into(users)
+    let created_user: User = diesel::insert_into(users)
         .values(new_user)
-        .get_results(&connection);
+        .get_result(&connection)
+        .expect("Failed to insert user");
 
-    println!("Inserted {} users", results.len());
-    for user in results {
-        println!("{}", user.full_name);
-        println!("----------\n");
-        println!("{}", user.email);
-    }
+    println!("{}", created_user.full_name);
+    println!("----------\n");
+    println!("{}", created_user.email);
 }
