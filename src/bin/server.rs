@@ -12,6 +12,15 @@ use rocket_contrib::uuid::Uuid;
 use test_rocket_app::establish_connection;
 use test_rocket_app::models::*;
 
+#[get("/user")]
+fn all_users() -> Json<Vec<User>> {
+    use test_rocket_app::schema::users::dsl::*;
+
+    let connection = establish_connection();
+    let user_list = users.load::<User>(&connection).unwrap();
+    Json(user_list)
+}
+
 #[get("/user/<_id>")]
 fn user(_id: Uuid) -> Json<User> {
     use test_rocket_app::schema::users::dsl::*;
@@ -31,7 +40,7 @@ fn not_found() -> String {
 
 fn main() {
     rocket::ignite()
-        .mount("/api", routes![user])
+        .mount("/api", routes![all_users, user])
         .register(catchers![not_found])
         .launch();
 }
