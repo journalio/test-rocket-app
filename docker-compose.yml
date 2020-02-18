@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=journali
+      - POSTGRES_PASSWORD=journali
+      - POSTGRES_DB=journali
+    volumes:
+      - "dbdata:/var/lib/postgresql/data"
+
+volumes:
+  dbdata:
