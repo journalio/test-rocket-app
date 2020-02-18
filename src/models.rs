@@ -1,9 +1,10 @@
 use diesel::sql_types::Timestamp;
+use serde::Serialize;
 use uuid::Uuid;
 
 use super::schema::users;
 
-#[derive(Queryable)]
+#[derive(Queryable, Serialize)]
 pub struct User {
     pub id: Uuid,
     pub full_name: String,
