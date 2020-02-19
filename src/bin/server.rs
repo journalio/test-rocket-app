@@ -5,33 +5,9 @@ extern crate diesel;
 extern crate rocket;
 extern crate rocket_contrib;
 
-use diesel::prelude::*;
-use rocket_contrib::json::Json;
-use rocket_contrib::uuid::Uuid;
-
-use test_rocket_app::establish_connection;
-use test_rocket_app::models::*;
-
-#[get("/user")]
-fn all_users() -> Json<Vec<User>> {
-    use test_rocket_app::schema::users::dsl::*;
-
-    let connection = establish_connection();
-    let user_list = users.load::<User>(&connection).unwrap();
-    Json(user_list)
-}
-
-#[get("/user/<_id>")]
-fn user(_id: Uuid) -> Json<User> {
-    use test_rocket_app::schema::users::dsl::*;
-
-    let connection = establish_connection();
-    let user = users
-        .filter(id.eq(_id.into_inner()))
-        .first(&connection)
-        .expect("User not found");
-    Json(user)
-}
+use dotenv::dotenv;
+use test_rocket_app::controllers;
+use test_rocket_app::init_pool;
 
 #[catch(404)]
 fn not_found() -> String {
@@ -39,8 +15,13 @@ fn not_found() -> String {
 }
 
 fn main() {
+    dotenv().ok();
     rocket::ignite()
-        .mount("/api", routes![all_users, user])
+        .manage(init_pool())
+        .mount(
+            "/api",
+            routes![controllers::users::all_users, controllers::users::user],
+        )
         .register(catchers![not_found])
         .launch();
 }

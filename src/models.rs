@@ -4,7 +4,7 @@ use uuid::Uuid;
 
 use super::schema::users;
 
-#[derive(Queryable, Serialize)]
+#[derive(Queryable, Serialize, AsChangeset)]
 pub struct User {
     pub id: Uuid,
     pub full_name: String,
