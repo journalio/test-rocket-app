@@ -20,6 +20,16 @@ pub struct NewUser<'a> {
     pub password_hash: &'a str,
 }
 
+impl<'a> NewUser<'a> {
+    pub fn from_user(user: &'a User) -> Self {
+        NewUser {
+            full_name: user.full_name.as_str(),
+            email: user.email.as_str(),
+            password_hash: user.password_hash.as_str(),
+        }
+    }
+}
+
 #[derive(Queryable)]
 pub struct Tag {
     pub id: Uuid,
