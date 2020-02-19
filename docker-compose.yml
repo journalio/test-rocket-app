@@ -13,11 +13,34 @@ services:
       - POSTGRES_DB=journali
     volumes:
       - "dbdata:/var/lib/postgresql/data"
-  app:
-    image: ff97e5cafbd3
+  traefik:
+    # The official v2 Traefik docker image
+    image: traefik:v2.1
+    # Enables the web UI and tells Traefik to listen to docker
     ports:
-      - "8000:8000"
-    env_file: .env
+      # The HTTP port
+      - "80:80"
+      # The Web UI (enabled by --api.insecure=true)
+      - "8080:8080"
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik.toml:/etc/traefik/traefik.toml
+  api:
+    image: ff97e5cafbd3
+    env_file: .env.docker
+    expose:
+      - "8000"
+    labels:
+      - "traefik.http.routers.app.rule=(Host(`app.test`) && PathPrefix(`/api/`))"
+  web:
+    image: nginx
+    expose:
+      - "80"
+    volumes:
+      - ./public:/usr/share/nginx/html
+    labels:
+      - "traefik.http.routers.api.rule=Host(`app.test`)"
 
 volumes:
   dbdata:
