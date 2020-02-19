@@ -10,10 +10,11 @@ fn main() {
     let pool = init_pool();
     let conn = DbConn(pool.get().unwrap());
 
+    
     let new_user = NewUser {
-        full_name: "Kasper van den berg",
-        email: "s1101481@student.hsleiden.nl",
-        password_hash: "blabblablabcrypt nog nodig",
+        full_name: "Kasper van den berg".into(),
+        email: "s1101481@student.hsleiden.nl".into(),
+        password_hash: "blabblablabcrypt nog nodig".into(),
     };
 
     let created_user = users::insert(new_user, &conn).expect("Failed to create user");

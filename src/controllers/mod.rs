@@ -3,14 +3,10 @@ use rocket::handler::Outcome;
 use rocket::http::Status;
 use rocket_contrib::json::Json;
 
-/*
- * controller definitions
- */
+///controller definitions
 pub mod users;
 
-/*
- * Internal types used by controllers
- */
+/// Internal types used by controllers
 type JsonResponse<U> = Result<Json<U>, Outcome<'static>>;
 
 trait IntoJsonResponse<U> {
@@ -23,9 +19,7 @@ impl<U> IntoJsonResponse<U> for JsonResponse<U> {
     }
 }
 
-/*
- * Error response generator
- */
+/// Generates an error response
 fn error_status(error: Error) -> Outcome<'static> {
     Outcome::failure(match error {
         Error::NotFound => Status::NotFound,

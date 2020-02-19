@@ -1,10 +1,10 @@
 use diesel::sql_types::Timestamp;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
 use super::schema::users;
 
-#[derive(Queryable, Serialize, AsChangeset)]
+#[derive(Queryable, Serialize, AsChangeset, Deserialize)]
 pub struct User {
     pub id: Uuid,
     pub full_name: String,
@@ -12,20 +12,39 @@ pub struct User {
     pub password_hash: String,
 }
 
-#[derive(Insertable)]
+#[derive(Insertable, Deserialize)]
 #[table_name = "users"]
-pub struct NewUser<'a> {
-    pub full_name: &'a str,
-    pub email: &'a str,
-    pub password_hash: &'a str,
+pub struct NewUser {
+    pub full_name: String,
+    pub email: String,
+    pub password_hash: String,
 }
 
-impl<'a> NewUser<'a> {
-    pub fn from_user(user: &'a User) -> Self {
-        NewUser {
-            full_name: user.full_name.as_str(),
-            email: user.email.as_str(),
-            password_hash: user.password_hash.as_str(),
+impl NewUser {
+    pub fn hash_password(self) -> Self {
+        use crypto::bcrypt::bcrypt;
+        use base64::encode;
+        
+        #[inline]
+        fn hash_password(s: String) -> String {
+            let mut hash = vec![0; 24];
+            let salt = b"SALTYSALTYSALTY!";
+
+            assert!(salt.len() == 16);
+
+            bcrypt(1, salt, &s.as_bytes(), &mut hash);
+            encode(&hash)
+        }
+
+        // This is a destructure of `self`.
+        let Self { full_name, email, password_hash } = self;
+        
+        let password_hash = hash_password(password_hash);
+
+        Self {
+            full_name,
+            email,
+            password_hash,
         }
     }
 }
