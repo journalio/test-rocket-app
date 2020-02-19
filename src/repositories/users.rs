@@ -13,9 +13,9 @@ pub fn get(id: Uuid, connection: &PgConnection) -> QueryResult<User> {
     users::table.find(id).get_result::<User>(connection)
 }
 
-pub fn insert(user: User, connection: &PgConnection) -> QueryResult<User> {
+pub fn insert(user: NewUser, connection: &PgConnection) -> QueryResult<User> {
     diesel::insert_into(users::table)
-        .values(&NewUser::from_user(&user))
+        .values(&user)
         .get_result(connection)
 }
 

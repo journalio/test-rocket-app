@@ -1,23 +1,22 @@
 extern crate diesel;
 
-use test_rocket_app::establish_connection;
-use test_rocket_app::models::{NewUser, User};
-
-use self::diesel::prelude::*;
+use dotenv::dotenv;
+use test_rocket_app::models::NewUser;
+use test_rocket_app::repositories::users;
+use test_rocket_app::{init_pool, DbConn};
 
 fn main() {
-    use test_rocket_app::schema::users::dsl::*;
+    dotenv().ok();
+    let pool = init_pool();
+    let conn = DbConn(pool.get().unwrap());
 
-    let connection = establish_connection();
     let new_user = NewUser {
-        full_name: "Wesley Klop",
-        email: "wesley19097@gmail.com",
+        full_name: "Kasper van den berg",
+        email: "s1101481@student.hsleiden.nl",
         password_hash: "blabblablabcrypt nog nodig",
     };
-    let created_user: User = diesel::insert_into(users)
-        .values(new_user)
-        .get_result(&connection)
-        .expect("Failed to insert user");
+
+    let created_user = users::insert(new_user, &conn).expect("Failed to create user");
 
     println!("{}", created_user.full_name);
     println!("----------\n");

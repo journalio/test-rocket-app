@@ -1,12 +1,10 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 
-extern crate diesel;
 #[macro_use]
 extern crate rocket;
-extern crate rocket_contrib;
 
 use dotenv::dotenv;
-use test_rocket_app::controllers;
+use test_rocket_app::controllers::users;
 use test_rocket_app::init_pool;
 
 #[catch(404)]
@@ -18,10 +16,7 @@ fn main() {
     dotenv().ok();
     rocket::ignite()
         .manage(init_pool())
-        .mount(
-            "/api",
-            routes![controllers::users::all_users, controllers::users::user],
-        )
+        .mount("/api", routes![users::index, users::get])
         .register(catchers![not_found])
         .launch();
 }

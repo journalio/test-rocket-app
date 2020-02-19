@@ -1,23 +1,17 @@
-extern crate diesel;
-
-use test_rocket_app::establish_connection;
-use test_rocket_app::models::*;
-
-use self::diesel::prelude::*;
+use dotenv::dotenv;
+use test_rocket_app::repositories::users;
+use test_rocket_app::{init_pool, DbConn};
 
 fn main() {
-    use test_rocket_app::schema::users::dsl::*;
+    dotenv().ok();
+    let pool = init_pool();
+    let conn = DbConn(pool.get().unwrap());
 
-    let connection = establish_connection();
-    let results = users
-        .limit(5)
-        .load::<User>(&connection)
-        .expect("Error loading users");
-
-    println!("Displaying {} users", results.len());
+    let results = users::all(&conn).expect("Failed to get users");
+    println!("Displaying {} users:", results.len());
     for user in results {
-        println!("{}", user.full_name);
-        println!("----------\n");
-        println!("{}", user.email);
+        println!("- {}", user.full_name);
+        println!("  {}", user.email);
+        println!();
     }
 }
