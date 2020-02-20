@@ -1,3 +1,5 @@
+#![allow(clippy::single_component_path_imports)]
+
 use diesel::sql_types::Timestamp;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
