@@ -1,10 +1,11 @@
 use rocket::{get, post};
-use rocket_contrib::json::Json;
-use rocket_contrib::uuid::Uuid;
+use rocket_contrib::{json::Json, uuid::Uuid};
 
-use crate::models::{NewUser, User};
-use crate::repositories::users;
-use crate::DbConn;
+use crate::{
+    models::{NewUser, User},
+    repositories::users,
+    DbConn,
+};
 
 use super::{IntoJsonResponse, JsonResponse};
 

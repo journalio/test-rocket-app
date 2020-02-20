@@ -4,8 +4,7 @@
 extern crate rocket;
 
 use dotenv::dotenv;
-use test_rocket_app::controllers::users;
-use test_rocket_app::init_pool;
+use test_rocket_app::{controllers::users, init_pool};
 
 #[catch(404)]
 fn not_found() -> String {

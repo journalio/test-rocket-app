@@ -1,9 +1,9 @@
 extern crate diesel;
 
 use dotenv::dotenv;
-use test_rocket_app::models::NewUser;
-use test_rocket_app::repositories::users;
-use test_rocket_app::{init_pool, DbConn};
+use test_rocket_app::{
+    init_pool, models::NewUser, repositories::users, DbConn,
+};
 
 fn main() {
     dotenv().ok();
@@ -16,7 +16,8 @@ fn main() {
         password_hash: "blabblablabcrypt nog nodig".into(),
     };
 
-    let created_user = users::insert(new_user, &conn).expect("Failed to create user");
+    let created_user =
+        users::insert(new_user, &conn).expect("Failed to create user");
 
     println!("{}", created_user.full_name);
     println!("----------\n");

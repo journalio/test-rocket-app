@@ -1,6 +1,5 @@
 use dotenv::dotenv;
-use test_rocket_app::repositories::users;
-use test_rocket_app::{init_pool, DbConn};
+use test_rocket_app::{init_pool, repositories::users, DbConn};
 
 fn main() {
     dotenv().ok();
