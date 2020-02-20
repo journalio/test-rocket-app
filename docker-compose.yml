@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
   postgres:
@@ -27,8 +27,10 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./traefik.toml:/etc/traefik/traefik.toml
   api:
-    image: ff97e5cafbd3
+    build: .
+    image: docker.pkg.github.com/journalio/test-rocket-app/api:latest
     env_file: .env.docker
+    stop_signal: SIGINT
     expose:
       - "8000"
     labels:
