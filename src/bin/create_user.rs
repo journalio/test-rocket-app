@@ -10,7 +10,6 @@ fn main() {
     let pool = init_pool();
     let conn = DbConn(pool.get().unwrap());
 
-    
     let new_user = NewUser {
         full_name: "Kasper van den berg".into(),
         email: "s1101481@student.hsleiden.nl".into(),

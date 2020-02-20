@@ -1,6 +1,6 @@
-use rocket::{post, get};
-use rocket_contrib::uuid::Uuid;
+use rocket::{get, post};
 use rocket_contrib::json::Json;
+use rocket_contrib::uuid::Uuid;
 
 use crate::models::{NewUser, User};
 use crate::repositories::users;

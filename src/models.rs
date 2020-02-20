@@ -22,24 +22,15 @@ pub struct NewUser {
 
 impl NewUser {
     pub fn hash_password(self) -> Self {
-        use crypto::bcrypt::bcrypt;
-        use base64::encode;
-        
-        #[inline]
-        fn hash_password(s: String) -> String {
-            let mut hash = vec![0; 24];
-            let salt = b"SALTYSALTYSALTY!";
-
-            assert!(salt.len() == 16);
-
-            bcrypt(1, salt, &s.as_bytes(), &mut hash);
-            encode(&hash)
-        }
+        use bcrypt::hash;
 
         // This is a destructure of `self`.
-        let Self { full_name, email, password_hash } = self;
-        
-        let password_hash = hash_password(password_hash);
+        let Self {
+            full_name,
+            email,
+            password_hash,
+        } = self;
+        let password_hash = hash(password_hash, 10).unwrap();
 
         Self {
             full_name,

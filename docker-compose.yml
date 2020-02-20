@@ -14,7 +14,7 @@ services:
     volumes:
       - "dbdata:/var/lib/postgresql/data"
   app:
-    image: ff97e5cafbd3
+    build: .
     ports:
       - "8000:8000"
     env_file: .env
