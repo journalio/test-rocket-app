@@ -16,7 +16,7 @@ fn main() {
     dotenv().ok();
     rocket::ignite()
         .manage(init_pool())
-        .mount("/api", routes![users::index, users::get, users::post])
+        .mount("/api", routes![users::index, users::get, users::store])
         .register(catchers![not_found])
         .launch();
 }

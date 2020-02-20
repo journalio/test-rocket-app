@@ -19,10 +19,7 @@ pub fn get(connection: DbConn, _id: Uuid) -> JsonResponse<User> {
 }
 
 #[post("/user", format = "application/json", data = "<user>")]
-pub fn post(user: Json<NewUser>, conn: DbConn) -> JsonResponse<User> {
-    let user = user.into_inner();
-
-    let new_user = user.hash_password();
-
+pub fn store(user: Json<NewUser>, conn: DbConn) -> JsonResponse<User> {
+    let new_user = user.into_inner().hash_password();
     JsonResponse::from_query_result(users::insert(new_user, &conn))
 }
