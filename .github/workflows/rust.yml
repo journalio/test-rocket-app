@@ -30,7 +30,7 @@ jobs:
           override: true
       - uses: actions-rs/cargo@v1
         with:
-          command: test --feautres "strict"
+          command: test --features "strict"
 
   fmt:
     name: Rustfmt
