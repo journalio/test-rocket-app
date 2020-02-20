@@ -1,0 +1,17 @@
+name: Publish Api Docker Image
+on:
+  push:
+    branches:
+      - master
+      - develop
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: journalio/test-rocket-app/api
+          username: ${{ github.actor }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
