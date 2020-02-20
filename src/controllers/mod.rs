@@ -1,6 +1,5 @@
 use diesel::result::Error;
-use rocket::handler::Outcome;
-use rocket::http::Status;
+use rocket::{handler::Outcome, http::Status};
 use rocket_contrib::json::Json;
 
 ///controller definitions

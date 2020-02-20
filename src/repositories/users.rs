@@ -1,9 +1,10 @@
-use diesel;
-use diesel::prelude::*;
+use diesel::{self, prelude::*};
 use uuid::Uuid;
 
-use crate::models::{NewUser, User};
-use crate::schema::users;
+use crate::{
+    models::{NewUser, User},
+    schema::users,
+};
 
 pub fn all(connection: &PgConnection) -> QueryResult<Vec<User>> {
     users::table.load::<User>(&*connection)
@@ -14,15 +15,15 @@ pub fn get(id: Uuid, connection: &PgConnection) -> QueryResult<User> {
 }
 
 pub fn insert(user: NewUser, connection: &PgConnection) -> QueryResult<User> {
-    diesel::insert_into(users::table)
-        .values(&user)
-        .get_result(connection)
+    diesel::insert_into(users::table).values(&user).get_result(connection)
 }
 
-pub fn update(id: Uuid, user: User, connection: &PgConnection) -> QueryResult<User> {
-    diesel::update(users::table.find(id))
-        .set(&user)
-        .get_result(connection)
+pub fn update(
+    id: Uuid,
+    user: User,
+    connection: &PgConnection,
+) -> QueryResult<User> {
+    diesel::update(users::table.find(id)).set(&user).get_result(connection)
 }
 
 pub fn delete(id: Uuid, connection: &PgConnection) -> QueryResult<usize> {

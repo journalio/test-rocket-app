@@ -23,18 +23,11 @@ pub struct NewUser {
 impl NewUser {
     pub fn hash_password(self) -> Self {
         // This is a destructure of `self`.
-        let Self {
-            full_name,
-            email,
-            password_hash,
-        } = self;
-        let password_hash = bcrypt::hash(password_hash, bcrypt::DEFAULT_COST).unwrap();
+        let Self { full_name, email, password_hash } = self;
+        let password_hash =
+            bcrypt::hash(password_hash, bcrypt::DEFAULT_COST).unwrap();
 
-        Self {
-            full_name,
-            email,
-            password_hash,
-        }
+        Self { full_name, email, password_hash }
     }
 }
 
