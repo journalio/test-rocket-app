@@ -1,14 +1,12 @@
 extern crate diesel;
 
 use dotenv::dotenv;
-use test_rocket_app::{
-    init_pool, models::NewUser, repositories::users, DbConn,
-};
+use test_rocket_app::{database, models::NewUser, repositories::users};
 
 fn main() {
     dotenv().ok();
-    let pool = init_pool();
-    let conn = DbConn(pool.get().unwrap());
+    let pool = database::init_pool();
+    let conn = database::DbConn(pool.get().unwrap());
 
     let new_user = NewUser {
         full_name: "Kasper van den berg".into(),
