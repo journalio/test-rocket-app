@@ -1,4 +1,4 @@
-name: Publish Api Docker Image
+name: Publish Docker Images
 on:
   push:
     branches:
@@ -9,10 +9,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Publish to Registry
+      - name: Publish Api to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
           name: journalio/test-rocket-app/api
+          username: ${{ github.actor }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          registry: docker.pkg.github.com
+      - name: Publish Web to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: journalio/test-rocket-app/web
           username: ${{ github.actor }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           registry: docker.pkg.github.com
