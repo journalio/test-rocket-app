@@ -24,10 +24,12 @@ pub struct NewUser {
 
 impl NewUser {
     pub fn hash_password(self) -> Self {
-        let password_hash =
-            bcrypt::hash(&self.password_hash, bcrypt::DEFAULT_COST).unwrap();
+        let password_hash = bcrypt::hash(&self.password_hash, bcrypt::DEFAULT_COST).unwrap();
 
-        Self { password_hash, ..self }
+        Self {
+            password_hash,
+            ..self
+        }
     }
 }
 

@@ -18,15 +18,15 @@ pub fn get(id: Uuid, connection: &Connection) -> QueryResult<User> {
 }
 
 pub fn insert(user: NewUser, connection: &Connection) -> QueryResult<User> {
-    diesel::insert_into(users::table).values(&user).get_result(connection)
+    diesel::insert_into(users::table)
+        .values(&user)
+        .get_result(connection)
 }
 
-pub fn update(
-    id: Uuid,
-    user: User,
-    connection: &Connection,
-) -> QueryResult<User> {
-    diesel::update(users::table.find(id)).set(&user).get_result(connection)
+pub fn update(id: Uuid, user: User, connection: &Connection) -> QueryResult<User> {
+    diesel::update(users::table.find(id))
+        .set(&user)
+        .get_result(connection)
 }
 
 pub fn delete(id: Uuid, connection: &Connection) -> QueryResult<usize> {
