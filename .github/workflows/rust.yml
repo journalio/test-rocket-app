@@ -1,6 +1,13 @@
 name: Rust
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    paths:
+      - '**.rs'
+      - '*.toml'
 
 jobs:
   check:
@@ -49,7 +56,7 @@ jobs:
         with:
           command: fmt
           args: --all -- --check
-  
+
   clippy_check:
     name: Clippy
     runs-on: ubuntu-latest

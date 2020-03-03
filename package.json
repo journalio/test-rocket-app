@@ -9,7 +9,8 @@
         "watch:dev": "yarn build:dev --watch",
         "build:prod": "webpack --mode=production",
         "watch:prod": "yarn build:prod --watch",
-        "lint:fix": "prettier --write \"app/**/*.{js,vue,css}\" \"./*.{json,yml,md,js}\""
+        "lint:fix": "prettier --write \"app/**/*.{js,vue,css}\" \"./*.{json,yml,md,js}\"",
+        "lint:check": "prettier --check \"app/**/*.{js,vue,css}\" \"./*.{json,yml,md,js}\" "
     },
     "dependencies": {
         "@babel/runtime": "^7.8.4",
