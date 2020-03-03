@@ -17,23 +17,21 @@ const getFinalCssLoader = mode => {
 }
 
 const getPostCssPlugins = mode => {
-    const plugins = [
-        require('tailwindcss'),
-    ]
+    const plugins = [require('tailwindcss')]
     if (mode === 'production') {
-        plugins.push(require('@fullhuman/postcss-purgecss')({
-            content: [
-                'app/**/*.html',
-                'app/**/*.vue',
-            ],
-            defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || [],
-        }))
+        plugins.push(
+            require('@fullhuman/postcss-purgecss')({
+                content: ['app/**/*.html', 'app/**/*.vue'],
+                defaultExtractor: content =>
+                    content.match(/[\w-/:]+(?<!:)/g) || [],
+            }),
+        )
     }
     return plugins
 }
 
 module.exports = (env, { mode }) => {
-    const config = ({
+    const config = {
         entry: resolve(__dirname, 'app', 'index.js'),
         context: resolve(__dirname, 'app'),
         output: {
@@ -50,15 +48,22 @@ module.exports = (env, { mode }) => {
                     loader: 'babel-loader',
                     exclude: /node_modules/,
                     options: {
-                        presets: [['@babel/preset-env', {
-                            modules: false,
-                            'targets': {
-                                'browsers': ['> 1%', 'last 2 versions', 'not ie <= 8'],
-                            },
-                        }]],
-                        plugins: [
-                            '@babel/plugin-transform-runtime',
+                        presets: [
+                            [
+                                '@babel/preset-env',
+                                {
+                                    modules: false,
+                                    targets: {
+                                        browsers: [
+                                            '> 1%',
+                                            'last 2 versions',
+                                            'not ie <= 8',
+                                        ],
+                                    },
+                                },
+                            ],
                         ],
+                        plugins: ['@babel/plugin-transform-runtime'],
                     },
                 },
                 {
@@ -93,7 +98,7 @@ module.exports = (env, { mode }) => {
                 template: 'index.html',
             }),
         ],
-    })
+    }
 
     if (mode === 'production') {
         config.plugins.push(new MiniCssExtractPlugin())

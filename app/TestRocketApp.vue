@@ -6,6 +6,7 @@
                 {{ user.full_name }}
             </li>
         </ul>
+        <button class="button">Nutteloze button</button>
     </div>
 </template>
 
@@ -28,4 +29,12 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.button {
+    @apply bg-blue-600 px-6 py-2 text-white shadow rounded uppercase;
+}
+
+.button:hover {
+    @apply shadow-md bg-blue-700;
+}
+</style>
