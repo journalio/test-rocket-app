@@ -1,5 +1,5 @@
-use rocket_contrib::database;
 use diesel::pg::PgConnection;
+use rocket_contrib::database;
 
 /// Use this type as database connection.
 /// This type can be changed to any
