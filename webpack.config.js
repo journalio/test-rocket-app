@@ -4,18 +4,38 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-
 const getFinalCssLoader = mode => {
     if (mode === 'production') {
-        return MiniCssExtractPlugin.loader
+        return {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+                esModule: true,
+            },
+        }
     }
     return 'vue-style-loader'
 }
 
+const getPostCssPlugins = mode => {
+    const plugins = [
+        require('tailwindcss'),
+    ]
+    if (mode === 'production') {
+        plugins.push(require('@fullhuman/postcss-purgecss')({
+            content: [
+                'app/**/*.html',
+                'app/**/*.vue',
+            ],
+            defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || [],
+        }))
+    }
+    return plugins
+}
+
 module.exports = (env, { mode }) => {
     const config = ({
-        entry: './app/index.js',
-        context: __dirname,
+        entry: resolve(__dirname, 'app', 'index.js'),
+        context: resolve(__dirname, 'app'),
         output: {
             path: resolve(__dirname, 'public'),
         },
@@ -25,7 +45,6 @@ module.exports = (env, { mode }) => {
                     test: /\.vue$/,
                     loader: 'vue-loader',
                 },
-
                 {
                     test: /\.js$/,
                     loader: 'babel-loader',
@@ -55,9 +74,7 @@ module.exports = (env, { mode }) => {
                         {
                             loader: 'postcss-loader',
                             options: {
-                                plugins: [
-                                    require('tailwindcss'),
-                                ],
+                                plugins: getPostCssPlugins(mode),
                             },
                         },
                     ],
@@ -72,12 +89,14 @@ module.exports = (env, { mode }) => {
             new VueLoaderPlugin(),
             new HtmlWebpackPlugin({
                 title: 'Test rocket app',
+                inject: true,
+                template: 'index.html',
             }),
         ],
     })
 
     if (mode === 'production') {
-        config.plugins.push(new MiniCssExtractPlugin({}))
+        config.plugins.push(new MiniCssExtractPlugin())
     }
 
     return config
