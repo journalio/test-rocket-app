@@ -1,8 +1,9 @@
 name: Web
 
 on:
-  branches:
-    - master
+  push:
+    branches:
+      - master
   pull_request:
     paths:
       - '**.js'

@@ -1,8 +1,9 @@
 name: Rust
 
 on:
-  branches:
-    - master
+  push:
+    branches:
+      - master
   pull_request:
     paths:
       - '**.rs'
@@ -55,7 +56,7 @@ jobs:
         with:
           command: fmt
           args: --all -- --check
-  
+
   clippy_check:
     name: Clippy
     runs-on: ubuntu-latest
