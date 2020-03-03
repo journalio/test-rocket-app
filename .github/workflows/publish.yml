@@ -17,9 +17,9 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           registry: docker.pkg.github.com
       - name: Publish Web to Registry
-          uses: elgohr/Publish-Docker-Github-Action@master
-          with:
-            name: journalio/test-rocket-app/web
-            username: ${{ github.actor }}
-            password: ${{ secrets.DOCKER_PASSWORD }}
-            registry: docker.pkg.github.com
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: journalio/test-rocket-app/web
+          username: ${{ github.actor }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          registry: docker.pkg.github.com
