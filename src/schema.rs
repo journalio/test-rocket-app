@@ -1,5 +1,3 @@
-#![allow(clippy::single_component_path_imports)]
-
 table! {
     items (id) {
         id -> Uuid,
