@@ -1,7 +1,9 @@
 name: Web
 
 on:
-  push:
+  branches:
+    - master
+  pull_request:
     paths:
       - '**.js'
       - '**.vue'
