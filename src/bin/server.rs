@@ -14,7 +14,7 @@ fn not_found() -> String {
 fn main() {
     dotenv().ok();
     rocket::ignite()
-        .manage(database::init_pool())
+        .attach(database::DbConn::fairing())
         .mount("/api", routes![users::index, users::get, users::store])
         .register(catchers![not_found])
         .launch();
