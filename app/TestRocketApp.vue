@@ -12,35 +12,41 @@
             <label class="label">
                 Full name
                 <input
-                        type="text"
-                        name="full_name"
-                        v-model="newUser.full_name"
-                        autocomplete="name"
-                        class="input"
+                    type="text"
+                    name="full_name"
+                    v-model="newUser.full_name"
+                    autocomplete="name"
+                    class="input"
                 />
             </label>
             <label class="label">
                 Password
                 <input
-                        type="password"
-                        name="password_hash"
-                        v-model="newUser.password_hash"
-                        autocomplete="name"
-                        class="input"
+                    type="password"
+                    name="password_hash"
+                    v-model="newUser.password_hash"
+                    autocomplete="name"
+                    class="input"
                 />
             </label>
             <label class="label">
                 Email
                 <input
-                        type="email"
-                        name="email"
-                        v-model="newUser.email"
-                        autocomplete="name"
-                        class="input"
+                    type="email"
+                    name="email"
+                    v-model="newUser.email"
+                    autocomplete="name"
+                    class="input"
                 />
             </label>
 
-            <label><input type="submit" class="button" :disabled="loading" value="Create user"/></label>
+            <label
+                ><input
+                    type="submit"
+                    class="button"
+                    :disabled="loading"
+                    value="Create user"
+            /></label>
         </form>
     </div>
 </template>
@@ -52,7 +58,7 @@ export default {
             await fetch('/api/user', {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json',
+                    Accept: 'application/json',
                 },
                 method: 'POST',
                 body: JSON.stringify(this.newUser),
@@ -102,7 +108,7 @@ export default {
 }
 
 .label {
-    @apply block my-4
+    @apply block my-4;
 }
 
 .input {
