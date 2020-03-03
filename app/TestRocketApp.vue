@@ -52,29 +52,20 @@
 </template>
 
 <script>
+import UserService from './services/UserService'
+
+const userService = new UserService()
+
 export default {
     methods: {
         async submit() {
-            await fetch('/api/user', {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                },
-                method: 'POST',
-                body: JSON.stringify(this.newUser),
-            })
+            await userService.create(this.newUser)
             this.resetForm()
 
             await this.fetchUsers()
         },
         async fetchUsers() {
-            const result = await fetch('/api/user', {
-                headers: {
-                    Accept: 'application/json',
-                },
-            })
-
-            this.users = await result.json()
+            this.users = await userService.all()
             this.loading = false
         },
         resetForm() {
