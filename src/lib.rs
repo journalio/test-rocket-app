@@ -10,5 +10,8 @@ pub mod controllers;
 pub mod database;
 pub mod models;
 pub mod repositories;
+
+#[allow(clippy::single_component_path_imports)]
 pub mod schema;
+
 pub(crate) use database::*;
