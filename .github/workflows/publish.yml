@@ -16,6 +16,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           registry: docker.pkg.github.com
+          dockerfile: api.dockerfile
       - name: Publish Web to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
@@ -23,3 +24,4 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           registry: docker.pkg.github.com
+          dockerfile: web.dockerfile
