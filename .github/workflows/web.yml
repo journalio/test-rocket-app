@@ -1,6 +1,12 @@
 name: Web
 
-on: [push]
+on:
+  push:
+    paths:
+      - '**.js'
+      - '**.vue'
+      - '**.json'
+      - '**.css'
 
 jobs:
   prettier:

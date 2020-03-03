@@ -1,6 +1,10 @@
 name: Rust
 
-on: [push]
+on:
+  push:
+    paths:
+      - '**.rs'
+      - '*.toml'
 
 jobs:
   check:
