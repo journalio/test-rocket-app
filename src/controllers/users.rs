@@ -7,20 +7,20 @@ use crate::{
     DbConn,
 };
 
-use super::{IntoJsonResponse, JsonResponse};
+use super::{FromResult, JsonResponse};
 
 #[get("/user")]
-pub fn index(connection: DbConn) -> JsonResponse<Vec<User>> {
-    JsonResponse::from_query_result(users::all(&connection))
+pub fn index<'a>(connection: DbConn) -> JsonResponse<'a, Vec<User>> {
+    JsonResponse::from_result(users::all(&connection))
 }
 
 #[get("/user/<_id>")]
-pub fn get(connection: DbConn, _id: Uuid) -> JsonResponse<User> {
-    JsonResponse::from_query_result(users::get(_id.into_inner(), &connection))
+pub fn get<'a>(connection: DbConn, _id: Uuid) -> JsonResponse<'a, User> {
+    JsonResponse::from_result(users::get(_id.into_inner(), &connection))
 }
 
 #[post("/user", format = "application/json", data = "<user>")]
-pub fn store(user: Json<NewUser>, conn: DbConn) -> JsonResponse<User> {
+pub fn store<'a>(user: Json<NewUser>, conn: DbConn) -> JsonResponse<'a, User> {
     let new_user = user.into_inner().hash_password();
-    JsonResponse::from_query_result(users::insert(new_user, &conn))
+    JsonResponse::from_result(users::insert(new_user, &conn))
 }

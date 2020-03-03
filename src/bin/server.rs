@@ -4,7 +4,7 @@
 extern crate rocket;
 
 use dotenv::dotenv;
-use test_rocket_app::{controllers::users, init_pool};
+use test_rocket_app::{controllers::users, database};
 
 #[catch(404)]
 fn not_found() -> String {
@@ -14,7 +14,7 @@ fn not_found() -> String {
 fn main() {
     dotenv().ok();
     rocket::ignite()
-        .manage(init_pool())
+        .manage(database::init_pool())
         .mount("/api", routes![users::index, users::get, users::store])
         .register(catchers![not_found])
         .launch();

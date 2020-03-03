@@ -6,15 +6,15 @@ use rocket_contrib::json::Json;
 pub mod users;
 
 /// Internal types used by controllers
-type JsonResponse<U> = Result<Json<U>, Outcome<'static>>;
+type JsonResponse<'r, U> = Result<Json<U>, Outcome<'r>>;
 
-trait IntoJsonResponse<U> {
-    fn from_query_result(result: Result<U, Error>) -> JsonResponse<U>;
+trait FromResult<T, E> {
+    fn from_result(r: Result<T, E>) -> Self;
 }
 
-impl<U> IntoJsonResponse<U> for JsonResponse<U> {
-    fn from_query_result(result: Result<U, Error>) -> JsonResponse<U> {
-        result.map(Json).map_err(error_status)
+impl<'r, T> FromResult<T, Error> for JsonResponse<'r, T> {
+    fn from_result(r: Result<T, Error>) -> Self {
+        r.map(Json).map_err(error_status)
     }
 }
 
