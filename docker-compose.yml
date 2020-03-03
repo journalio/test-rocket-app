@@ -3,6 +3,7 @@ version: '3'
 services:
     postgres:
         image: postgres:latest
+        # We need to manually run migrations for now so expose the database.
         ports:
             - '5432:5432'
         expose:
@@ -37,6 +38,8 @@ services:
             - '8000'
         labels:
             - 'traefik.http.routers.app.rule=(Host(`app.test`) && PathPrefix(`/api/`))'
+        depends_on:
+            - postgres
     web:
         build:
             context: .

@@ -53,4 +53,10 @@ joinable!(items_tags -> tags (tag_id));
 joinable!(tags -> users (created_by));
 joinable!(todos -> items (id));
 
-allow_tables_to_appear_in_same_query!(items, items_tags, tags, todos, users,);
+allow_tables_to_appear_in_same_query!(
+    items,
+    items_tags,
+    tags,
+    todos,
+    users,
+);
