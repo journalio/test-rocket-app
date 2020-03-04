@@ -1,8 +1,8 @@
 # Test application for IPSENH
 
-![Rust](https://github.com/journalio/test-rocket-app/workflows/Rust/badge.svg?branch=develop)
-![Web](https://github.com/journalio/test-rocket-app/workflows/Web/badge.svg?branch=develop)
-![Publish Api Docker Image](https://github.com/journalio/test-rocket-app/workflows/Publish%20Api%20Docker%20Image/badge.svg?branch=develop)
+![Rust](https://github.com/journalio/test-rocket-app/workflows/Rust/badge.svg)
+![Web](https://github.com/journalio/test-rocket-app/workflows/Web/badge.svg)
+![Publish Api Docker Image](https://github.com/journalio/test-rocket-app/workflows/Publish%20Api%20Docker%20Image/badge.svg)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=journalio/test-rocket-app)](https://dependabot.com)
 [![Bors enabled](https://bors.tech/images/badge_small.svg)](https://app.bors.tech/repositories/23668)
 
