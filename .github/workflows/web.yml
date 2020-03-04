@@ -1,26 +1,37 @@
 name: Web
 
 on:
-  push:
-    branches:
-      - master
-      - staging
-      - trying
-  pull_request:
-    paths:
-      - '**.js'
-      - '**.vue'
-      - '**.json'
-      - '**.css'
+    push:
+        branches:
+            - master
+            - staging
+            - trying
+    pull_request:
+        paths:
+            - '**.js'
+            - '**.vue'
+            - '**.json'
+            - '**.css'
 
 jobs:
-  prettier:
-    name: prettier
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '13.x'
-      - run: yarn --frozen-lockfile
-      - run: yarn lint:check
+    prettier:
+        name: Prettier
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v2
+            -   uses: actions/setup-node@v1
+                with:
+                    node-version: '13.x'
+            -   run: yarn --frozen-lockfile
+            -   run: yarn lint:check
+
+    build:
+        name: Build
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v2
+            -   uses: actions/setup-node@v1
+                with:
+                    node-version: '13.x'
+            -   run: yarn --frozen-lockfile
+            -   run: yarn build:prod
