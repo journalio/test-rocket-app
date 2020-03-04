@@ -1,3 +1,2 @@
-status = ["Test Suite", "Prettier", "code-style"]
 pr-status = ["WIP"]
 delete-merged-branches = true
