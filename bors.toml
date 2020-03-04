@@ -1,2 +1,2 @@
-status = ["test"]
+status = ["check", "test", "fmt", "clippy", "prettier", "build"]
 delete-merged-branches = true
