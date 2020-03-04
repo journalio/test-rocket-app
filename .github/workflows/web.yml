@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+      - staging
+      - trying
   pull_request:
     paths:
       - '**.js'
@@ -13,7 +15,7 @@ on:
 
 jobs:
   prettier:
-    name: Prettier
+    name: prettier
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

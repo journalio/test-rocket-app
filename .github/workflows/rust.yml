@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+      - staging
+      - trying
   pull_request:
     paths:
       - '**.rs'
@@ -11,7 +13,7 @@ on:
 
 jobs:
   check:
-    name: Check Code
+    name: check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -27,7 +29,7 @@ jobs:
           args: --features "strict"
 
   test:
-    name: Test Suite
+    name: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -42,7 +44,7 @@ jobs:
           args: --features "strict"
 
   fmt:
-    name: Rustfmt
+    name: fmt
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -57,8 +59,8 @@ jobs:
           command: fmt
           args: --all -- --check
 
-  clippy_check:
-    name: Clippy
+  clippy:
+    name: clippy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
