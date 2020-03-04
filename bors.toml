@@ -1,3 +1,2 @@
-status = ["Test Suite"]
-pr-status = ["passing"]
+status = ["test"]
 delete-merged-branches = true
