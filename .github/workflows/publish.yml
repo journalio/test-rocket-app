@@ -1,29 +1,29 @@
 name: Publish Docker Images
 
 on:
-  push:
-    branches:
-      - master
-      - develop
+    push:
+        branches:
+            - master
+            - develop
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Publish Api to Registry
-        uses: elgohr/Publish-Docker-Github-Action@master
-        with:
-          name: journalio/test-rocket-app/api
-          username: ${{ github.actor }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          registry: docker.pkg.github.com
-          dockerfile: api.dockerfile
-      - name: Publish Web to Registry
-        uses: elgohr/Publish-Docker-Github-Action@master
-        with:
-          name: journalio/test-rocket-app/web
-          username: ${{ github.actor }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          registry: docker.pkg.github.com
-          dockerfile: web.dockerfile
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v2
+            -   name: Publish Api to Registry
+                uses: elgohr/Publish-Docker-Github-Action@master
+                with:
+                    name: journalio/test-rocket-app/api
+                    username: ${{ github.actor }}
+                    password: ${{ secrets.DOCKER_PASSWORD }}
+                    registry: docker.pkg.github.com
+                    dockerfile: api.dockerfile
+            -   name: Publish Web to Registry
+                uses: elgohr/Publish-Docker-Github-Action@master
+                with:
+                    name: journalio/test-rocket-app/web
+                    username: ${{ github.actor }}
+                    password: ${{ secrets.DOCKER_PASSWORD }}
+                    registry: docker.pkg.github.com
+                    dockerfile: web.dockerfile
