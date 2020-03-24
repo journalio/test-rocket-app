@@ -1,7 +1,7 @@
 FROM rustlang/rust:nightly as builder
 WORKDIR /usr/src/test-rocket-app
 COPY . .
-RUN cargo +nightly install --path .
+RUN cargo install --path .
 
 FROM debian:buster-slim
 RUN apt-get update && apt-get install -y libpq-dev
