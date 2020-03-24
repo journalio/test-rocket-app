@@ -6,7 +6,7 @@ on:
             - master
 
 jobs:
-    build:
+    build-api:
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@v2
@@ -18,6 +18,10 @@ jobs:
                     password: ${{ github.token }}
                     registry: docker.pkg.github.com
                     dockerfile: api.dockerfile
+    build-web:
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v2
             -   name: Publish Web to Registry
                 uses: elgohr/Publish-Docker-Github-Action@master
                 with:
