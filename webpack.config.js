@@ -4,7 +4,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-const getFinalCssLoader = mode => {
+const getFinalCssLoader = (mode) => {
     if (mode === 'production') {
         return {
             loader: MiniCssExtractPlugin.loader,
@@ -16,13 +16,13 @@ const getFinalCssLoader = mode => {
     return 'vue-style-loader'
 }
 
-const getPostCssPlugins = mode => {
+const getPostCssPlugins = (mode) => {
     const plugins = [require('tailwindcss')]
     if (mode === 'production') {
         plugins.push(
             require('@fullhuman/postcss-purgecss')({
                 content: ['app/**/*.html', 'app/**/*.vue'],
-                defaultExtractor: content =>
+                defaultExtractor: (content) =>
                     content.match(/[\w-/:]+(?<!:)/g) || [],
             }),
         )

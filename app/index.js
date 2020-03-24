@@ -5,5 +5,5 @@ import './style.css'
 
 new Vue({
     el: '#app',
-    render: h => h(TestRocketApp),
+    render: (h) => h(TestRocketApp),
 })
