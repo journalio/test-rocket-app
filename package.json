@@ -13,7 +13,7 @@
         "lint:check": "prettier --check \"app/**/*.{js,vue,css}\" \"./*.{json,yml,md,js}\" "
     },
     "dependencies": {
-        "@babel/runtime": "^7.8.7",
+        "@babel/runtime": "^7.9.2",
         "tailwindcss": "^1.2.0",
         "vue": "^2.6.11"
     },
