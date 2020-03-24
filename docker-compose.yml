@@ -25,29 +25,30 @@ services:
             - /var/run/docker.sock:/var/run/docker.sock
             - ./traefik.toml:/etc/traefik/traefik.toml
     api:
-        build:
-            context: .
-            dockerfile: api.dockerfile
-        image: docker.pkg.github.com/journalio/test-rocket-app/api:latest
+        image: rustlang/rust:nightly
         env_file: .env.docker
         stop_signal: SIGINT
         expose:
             - '8000'
         labels:
-            - 'traefik.http.routers.app.rule=(Host(`app.test`) && PathPrefix(`/api/`))'
+            - 'traefik.http.routers.api.rule=(Host(`app.test`) && PathPrefix(`/api/`))'
         depends_on:
             - postgres
+        volumes:
+            - .:/app
+            - 'rust-cache:/root/.cargo'
+        working_dir: /app
+        entrypoint: "cargo run"
+        command: "server"
     web:
-        build:
-            context: .
-            dockerfile: web.dockerfile
-        image: docker.pkg.github.com/journalio/test-rocket-app/web:latest
+        image: nginx:alpine
         expose:
             - '80'
         volumes:
             - ./public:/usr/share/nginx/html
         labels:
-            - 'traefik.http.routers.api.rule=Host(`app.test`)'
+            - 'traefik.http.routers.app.rule=Host(`app.test`)'
 
 volumes:
     dbdata:
+    rust-cache:
