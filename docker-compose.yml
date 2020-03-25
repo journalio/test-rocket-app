@@ -5,6 +5,8 @@ services:
         image: postgres:latest
         expose:
             - '5432'
+        ports:
+            - '5432:5432'
         environment:
             - POSTGRES_USER=journali
             - POSTGRES_PASSWORD=journali
@@ -38,8 +40,8 @@ services:
             - .:/app
             - 'rust-cache:/root/.cargo'
         working_dir: /app
-        entrypoint: "cargo run"
-        command: "server"
+        entrypoint: 'cargo run'
+        command: 'server'
     web:
         image: nginx:alpine
         expose:
